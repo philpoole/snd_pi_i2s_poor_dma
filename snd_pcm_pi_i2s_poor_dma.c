@@ -205,7 +205,7 @@ static irqreturn_t dma_interrupt_handler(int irq, void *dev_id)
     if(!dma_int_aborted)
         bcm_dma_start(dma_chan_base,control_block_phys[current_dma_block]);
 
-    if(valid == 1) /*valid, so notify*/
+    if(valid == 1 && pi_i2s_opened == 1) /*valid, so notify*/
     {
     /*    real_isr_pointer+=status_block_dest[0];*/
         snd_pcm_period_elapsed(ref_substream);
