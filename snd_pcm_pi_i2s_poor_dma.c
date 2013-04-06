@@ -287,12 +287,17 @@ static int pi_i2s_pcm_trigger(struct snd_pcm_substream *substream, int cmd)
         }
 	return -EINVAL;
 }
-
+static int first_time=1;
 static int pi_i2s_pcm_prepare(struct snd_pcm_substream *substream)
 {
 	/*printk(KERN_INFO "PCM PREPARE\n");*/
-        setup_control_blocks();
-        ref_substream = substream; /*could use status block[n] here*/
+        if(first_time)
+        {
+
+            setup_control_blocks();
+            ref_substream = substream; /*could use status block[n] here*/
+            first_time = 0;
+        }
         return 0;
 }
 
